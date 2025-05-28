@@ -22,6 +22,8 @@ ShortestPathApp/
 ├── app.py                    # Main Flask application
 ├── templates/
 │   └── index.html            # HTML page with city selection and map display
+├── notebook/
+│   └── index.html            # EDA and pre creation
 ├── static/
 │   └── background.jpg        # Background image used in the HTML page
 ├── Distances.csv             # Distance matrix between cities
