@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shortest Path Finder</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url("/static/background.jpg"); /* ✅ Path to your image */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.85); /* translucent white box */
+      padding: 20px;
+      margin: 40px auto;
+      width: 90%;
+      max-width: 1000px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    select, button {
+      padding: 8px;
+      margin-right: 10px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .info {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    #map {
+      width: 100%;
+      height: 500px;
+      margin-top: 20px;
+    }
+
+    iframe {
+      width: 100% !important;
+      height: 500px !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Shortest Path Between Cities</h1>
+
+    <form method="POST">
+      <label for="source">Source:</label>
+      <select name="source" id="source" required>
+        <option value="">--Select Source--</option>
+        {% for city in cities %}
+          <option value="{{ city }}" {% if request.form.source == city %}selected{% endif %}>{{ city }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="destination">Destination:</label>
+      <select name="destination" id="destination" required>
+        <option value="">--Select Destination--</option>
+        {% for city in cities %}
+          <option value="{{ city }}" {% if request.form.destination == city %}selected{% endif %}>{{ city }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit">Find Shortest Path</button>
+    </form>
+
+    {% if distance is not none %}
+      <div class="info">Shortest Distance: {{ distance }} km</div>
+    {% endif %}
+
+    {% if path %}
+      <div class="info">Path: {{ path }}</div>
+    {% endif %}
+
+    {% if map_html %}
+      <div id="map">
+        {{ map_html | safe }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
